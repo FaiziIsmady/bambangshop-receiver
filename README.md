@@ -68,16 +68,16 @@ You can install Postman via this website: https://www.postman.com/downloads/
     -   [x] Commit: `Implement list_all_as_string function in Notification repository.`
     -   [x] Write answers of your learning module's "Reflection Subscriber-1" questions in this README.
 -   **STAGE 3: Implement services and controllers**
-    -   [ ] Commit: `Create Notification service struct skeleton.`
-    -   [ ] Commit: `Implement subscribe function in Notification service.`
-    -   [ ] Commit: `Implement subscribe function in Notification controller.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification service.`
-    -   [ ] Commit: `Implement unsubscribe function in Notification controller.`
-    -   [ ] Commit: `Implement receive_notification function in Notification service.`
-    -   [ ] Commit: `Implement receive function in Notification controller.`
-    -   [ ] Commit: `Implement list_messages function in Notification service.`
-    -   [ ] Commit: `Implement list function in Notification controller.`
-    -   [ ] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
+    -   [x] Commit: `Create Notification service struct skeleton.`
+    -   [x] Commit: `Implement subscribe function in Notification service.`
+    -   [x] Commit: `Implement subscribe function in Notification controller.`
+    -   [x] Commit: `Implement unsubscribe function in Notification service.`
+    -   [x] Commit: `Implement unsubscribe function in Notification controller.`
+    -   [x] Commit: `Implement receive_notification function in Notification service.`
+    -   [x] Commit: `Implement receive function in Notification controller.`
+    -   [x] Commit: `Implement list_messages function in Notification service.`
+    -   [x] Commit: `Implement list function in Notification controller.`
+    -   [x] Write answers of your learning module's "Reflection Subscriber-2" questions in this README.
 
 ## Your Reflections
 This is the place for you to write reflections:
@@ -96,3 +96,15 @@ Rust does not allow direct mutation of static variables like Java because of its
 
 
 #### Reflection Subscriber-2
+
+1. Have you explored things outside of the steps in the tutorial, for example: src/lib.rs? If not, explain why you did not do so. If yes, explain things that you have learned from those other parts of code.
+
+Yes, I explored additional parts of the code outside the main tutorial steps, such as src/lib.rs. From this exploration, I learned that lib.rs serves as the entry point for defining the module structure of the project. It helps in organizing different components like models, services, controllers, and repositories. Additionally, understanding how modules are structured in Rust gave me better insight into how dependencies are managed and how different parts of the application interact.
+
+2. Since you have completed the tutorial by now and have tried to test your notification system by spawning multiple instances of Receiver, explain how Observer pattern eases you to plug in more subscribers. How about spawning more than one instance of Main app, will it still be easy enough to add to the system?
+
+The Observer pattern simplifies adding more subscribers because each subscriber (Receiver instance) can register dynamically without modifying the core logic of the Main app. This makes it easy to scale and integrate new notification handlers. However, spawning multiple instances of the Main app introduces complexity, as each instance would need proper synchronization mechanisms to ensure consistent state across all instances. If not managed correctly, there could be issues such as duplicate notifications or missed updates.
+
+3. Have you tried to make your own Tests, or enhance documentation on your Postman collection? If you have tried those features, tell us whether it is useful for your work (it can be your tutorial work or your Group Project).
+
+I launched multiple instances of the Receiver app, each assigned to different ports (8001, 8002, and 8003) by adjusting the `.env` file to modify the `ROCKET_PORT` and `APP_INSTANCE_NAME` variables. After starting each instance separately using `cargo run` in different terminals, I also ran a single instance of the Main app. Using the provided Postman collection, I tested the subscription functionality by registering different Receiver instances for various product types. Then, I triggered the `create Product`, `publish Product`, and `delete Product` endpoints in the Main app and confirmed that each Receiver instance correctly received its corresponding notifications. This experiment validated that the Observer pattern efficiently supports multiple subscribers receiving updates dynamically. Additionally, by testing different product categories, I ensured that notifications were properly routed to the intended Receiver instances. Postman proved valuable in streamlining the testing process, making it easy to send requests and verify responses.
